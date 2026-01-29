@@ -56,5 +56,16 @@ pipeline:
                         npm install && npm run build
                       fi
                   timeout: 10m
+              - step:
+                  type: BuildAndPushGAR
+                  name: BuildAndPushGAR_1
+                  identifier: BuildAndPushGAR_1
+                  spec:
+                    connectorRef: gkmicroservicesprojectdemo
+                    host: asia-south1-docker.pkg.dev
+                    projectID: gowthamk
+                    imageName: harness-repo/${SERVICE_NAME}
+                    tags:
+                      - ${BUILD_ID}
             rollbackSteps: []
   description: This pipeline was updated by Harness AI on 2026-01-29 12:23:36 UTC by Gowtham.
