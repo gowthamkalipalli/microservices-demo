@@ -42,7 +42,19 @@ pipeline:
                   identifier: Run_1
                   spec:
                     shell: Sh
-                    command: cd adservice && mvn clean package
+                    command: |-
+                      cd src/${SERVICE_NAME}
+
+                      if [ -f "go.mod" ]; then
+                        echo "Go service detected"
+                        go build -o app
+                      elif [ -f "pom.xml" ]; then
+                        echo "Java service detected"
+                        mvn clean package -DskipTests
+                      elif [ -f "package.json" ]; then
+                        echo "Node service detected"
+                        npm install && npm run build
+                      fi
                   timeout: 10m
             rollbackSteps: []
   description: This pipeline was updated by Harness AI on 2026-01-29 12:23:36 UTC by Gowtham.
