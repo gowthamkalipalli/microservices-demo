@@ -64,9 +64,9 @@ pipeline:
                     connectorRef: gkmicroservicesprojectdemo
                     host: asia-south1-docker.pkg.dev
                     projectID: gowthamk
-                    imageName: harness-repo/adservice
+                    imageName: harness-repo/<+pipeline.variables.SERVICE_NAME>
                     tags:
-                      - latest
+                      - <+pipeline.sequenceId>
                     dockerfile: src/<+pipeline.variables.SERVICE_NAME>/Dockerfile
                     context: src/<+pipeline.variables.SERVICE_NAME>
                   timeout: 10m
