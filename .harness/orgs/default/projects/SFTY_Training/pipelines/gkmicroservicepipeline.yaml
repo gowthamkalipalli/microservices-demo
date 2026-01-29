@@ -65,7 +65,9 @@ pipeline:
                     host: asia-south1-docker.pkg.dev
                     projectID: gowthamk
                     imageName: harness-repo/${SERVICE_NAME}
+                    context: src/${SERVICE_NAME}
                     tags:
                       - ${BUILD_ID}
+                  timeout: 10m
             rollbackSteps: []
-  description: This pipeline was updated by Harness AI on 2026-01-29 12:23:36 UTC by Gowtham.
+  description: This pipeline was updated by Harness AI on 2026-01-29 16:41:33 UTC by Gowtham.
