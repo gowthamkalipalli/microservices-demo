@@ -71,3 +71,9 @@ pipeline:
                   timeout: 10m
             rollbackSteps: []
   description: This pipeline was updated by Harness AI on 2026-01-29 16:41:33 UTC by Gowtham.
+  variables:
+    - name: SERVICE_NAME
+      type: String
+      description: ""
+      required: true
+      value: <+input>
