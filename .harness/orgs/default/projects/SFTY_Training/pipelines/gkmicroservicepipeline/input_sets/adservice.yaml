@@ -1,0 +1,14 @@
+inputSet:
+  name: adservice
+  identifier: adservice
+  orgIdentifier: default
+  projectIdentifier: SFTY_Training
+  pipeline:
+    identifier: gkmicroservicepipeline
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
