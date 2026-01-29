@@ -67,7 +67,8 @@ pipeline:
                     imageName: harness-repo/adservice
                     tags:
                       - latest
-                    context: src/${SERVICE_NAME}
+                    dockerfile: src/<+pipeline.variables.SERVICE_NAME>/Dockerfile
+                    context: src/<+pipeline.variables.SERVICE_NAME>
                   timeout: 10m
             rollbackSteps: []
   description: This pipeline was updated by Harness AI on 2026-01-29 16:41:33 UTC by Gowtham.
