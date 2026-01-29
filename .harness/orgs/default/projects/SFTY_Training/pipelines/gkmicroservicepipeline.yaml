@@ -64,7 +64,7 @@ pipeline:
                     connectorRef: gkmicroservicesprojectdemo
                     host: asia-south1-docker.pkg.dev
                     projectID: gowthamk
-                    imageName: harness-repo/<+pipeline.variables.SERVICE_NAME>
+                    imageName: harness-repo/adservice
                     tags:
                       - latest
                     context: src/${SERVICE_NAME}
