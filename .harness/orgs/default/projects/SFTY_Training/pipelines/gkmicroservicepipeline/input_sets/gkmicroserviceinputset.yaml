@@ -1,0 +1,14 @@
+inputSet:
+  name: gk-microservice-inputset
+  identifier: gkmicroserviceinputset
+  orgIdentifier: default
+  projectIdentifier: SFTY_Training
+  pipeline:
+    identifier: gkmicroservicepipeline
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
