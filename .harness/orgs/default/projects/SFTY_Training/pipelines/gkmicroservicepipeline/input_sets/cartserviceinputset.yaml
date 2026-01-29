@@ -1,0 +1,11 @@
+inputSet:
+  name: cartservice-inputset
+  identifier: cartserviceinputset
+  orgIdentifier: default
+  projectIdentifier: SFTY_Training
+  pipeline:
+    identifier: gkmicroservicepipeline
+    variables:
+      - name: SERVICE_NAME
+        type: String
+        value: cartservice
