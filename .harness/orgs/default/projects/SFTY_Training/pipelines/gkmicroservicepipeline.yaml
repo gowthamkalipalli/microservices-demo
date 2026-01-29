@@ -57,34 +57,6 @@ pipeline:
                       fi
                   timeout: 10m
               - step:
-                  type: Run
-                  name: validate_dockerfile
-                  identifier: validate_dockerfile
-                  spec:
-                    connectorRef: account.harnessImage
-                    image: alpine
-                    shell: Bash
-                    command: |
-                      # Check if Dockerfile exists at the expected location
-                      if [ ! -f "src/${SERVICE_NAME}/Dockerfile" ]; then
-                        echo "ERROR: Dockerfile not found at src/${SERVICE_NAME}/Dockerfile"
-                        echo "Available directories in src/:"
-                        ls -la src/
-                        echo "\nAvailable files in src/${SERVICE_NAME}/ (if directory exists):"
-                        if [ -d "src/${SERVICE_NAME}" ]; then
-                          ls -la "src/${SERVICE_NAME}/"
-                        else
-                          echo "Directory src/${SERVICE_NAME}/ does not exist"
-                        fi
-                        exit 1
-                      else
-                        echo "Dockerfile found at src/${SERVICE_NAME}/Dockerfile"
-                        echo "Proceeding with build..."
-                      fi
-                    envVariables:
-                      SERVICE_NAME: <+pipeline.variables.SERVICE_NAME>
-                  timeout: 10m
-              - step:
                   type: BuildAndPushGAR
                   name: BuildAndPushGAR_1
                   identifier: BuildAndPushGAR_1
@@ -101,7 +73,6 @@ pipeline:
                   when:
                     condition: fileExists('src/<+pipeline.variables.SERVICE_NAME>/Dockerfile')
                     stageStatus: Success
-            rollbackSteps: []
   variables:
     - name: SERVICE_NAME
       type: String
