@@ -70,9 +70,6 @@ pipeline:
                     dockerfile: src/<+pipeline.variables.SERVICE_NAME>/Dockerfile
                     context: src/<+pipeline.variables.SERVICE_NAME>
                   timeout: 10m
-                  when:
-                    condition: fileExists('src/<+pipeline.variables.SERVICE_NAME>/Dockerfile')
-                    stageStatus: Success
   variables:
     - name: SERVICE_NAME
       type: String
