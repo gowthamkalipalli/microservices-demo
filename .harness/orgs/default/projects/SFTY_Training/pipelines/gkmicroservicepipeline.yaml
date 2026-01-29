@@ -3,13 +3,17 @@ pipeline:
   identifier: gkmicroservicepipeline
   projectIdentifier: SFTY_Training
   orgIdentifier: default
-  tags: {}
+  tags:
+    ai_generated: "true"
   properties:
     ci:
       codebase:
         connectorRef: gkmicroprojectgittoken
         repoName: microservices-demo
-        build: <+input>
+        build:
+          type: branch
+          spec:
+            branch: main
   stages:
     - stage:
         name: CI
@@ -39,3 +43,5 @@ pipeline:
                   spec:
                     shell: Sh
                     command: mvn clean package
+            rollbackSteps: []
+  description: This pipeline was updated by Harness AI on 2026-01-29 12:15:51 UTC by Gowtham.
