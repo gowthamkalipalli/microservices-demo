@@ -117,6 +117,12 @@ pipeline:
                 - AllErrors
               action:
                 type: StageRollback
+        variables:
+          - name: SERVICE_NAME
+            type: String
+            description: ""
+            required: true
+            value: <+input>
   variables:
     - name: SERVICE_NAME
       type: String
