@@ -70,6 +70,53 @@ pipeline:
                     dockerfile: src/<+pipeline.variables.SERVICE_NAME>/Dockerfile
                     context: src/<+pipeline.variables.SERVICE_NAME>
                   timeout: 10m
+    - stage:
+        name: CD
+        identifier: CD
+        description: ""
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          service:
+            serviceRef: gksvcmicroservices
+            serviceInputs:
+              serviceDefinition:
+                type: Kubernetes
+                spec:
+                  artifacts:
+                    primary:
+                      primaryArtifactRef: <+input>
+                      sources: <+input>
+          environment:
+            environmentRef: gkmicroserviceenv
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: gkinframicroservices
+          execution:
+            steps:
+              - step:
+                  name: Rollout Deployment
+                  identifier: rolloutDeployment
+                  type: K8sRollingDeploy
+                  timeout: 10m
+                  spec:
+                    skipDryRun: false
+                    pruningEnabled: false
+            rollbackSteps:
+              - step:
+                  name: Rollback Rollout Deployment
+                  identifier: rollbackRolloutDeployment
+                  type: K8sRollingRollback
+                  timeout: 10m
+                  spec:
+                    pruningEnabled: false
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
   variables:
     - name: SERVICE_NAME
       type: String
