@@ -1,5 +1,5 @@
 pipeline:
-  name: gk-microservice-pipeline
+  name: gk-microservice-pipeline-CI
   identifier: gkmicroservicepipeline
   projectIdentifier: SFTY_Training
   orgIdentifier: default
