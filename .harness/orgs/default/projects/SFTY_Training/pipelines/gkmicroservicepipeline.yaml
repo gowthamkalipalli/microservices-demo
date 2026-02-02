@@ -67,6 +67,7 @@ pipeline:
                     imageName: harness-repo/cartservice
                     tags:
                       - latest
+                      - <+trigger.artifact.tag>
                     dockerfile: src/<+pipeline.variables.SERVICE_NAME>/Dockerfile
                     context: src/<+pipeline.variables.SERVICE_NAME>
                   timeout: 10m
