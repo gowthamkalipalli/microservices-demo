@@ -17,9 +17,9 @@
 # Declare variables to be passed into your templates.
 
 images:
-  repository: asia-south1-docker.pkg.dev/gowthamk/harness-repo/<+pipeline.variables.SERVICE_NAME>
+  repository: asia-south1-docker.pkg.dev/gowthamk/harness-repo/<+artifact.package>
   # Overrides the image tag whose default is the chart appVersion.
-  tag: <+artifacts.primary.tag>
+  tag: <+artifact.tag>
 
 serviceAccounts: <+pipeline.variables.SERVICE_NAME>
   # Specifies whether service accounts should be created.
