@@ -1,0 +1,29 @@
+inputSet:
+  name: gk-adservice
+  identifier: gkadservice
+  orgIdentifier: default
+  projectIdentifier: SFTY_Training
+  pipeline:
+    identifier: gkmicroservicepipeline
+    stages:
+      - stage:
+          identifier: CD
+          type: Deployment
+          spec:
+            service:
+              serviceInputs:
+                serviceDefinition:
+                  type: Kubernetes
+                  spec:
+                    artifacts:
+                      primary:
+                        primaryArtifactRef: microservicesCdArtifacts
+                        sources:
+                          - identifier: microservicesCdArtifacts
+                            type: GoogleArtifactRegistry
+                            spec:
+                              package: adservice
+    variables:
+      - name: SERVICE_NAME
+        type: String
+        value: adservice
