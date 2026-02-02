@@ -1,6 +1,6 @@
 # Ad Service
 
-The Ad service provides advertisement based on context keys. If no context keys are provided then it returns random ads.GOWTHAM
+The Ad service provides advertisement based on context keys. If no context keys are provided then it returns random ads. Kalipalli
 
 ## Building locally
 
