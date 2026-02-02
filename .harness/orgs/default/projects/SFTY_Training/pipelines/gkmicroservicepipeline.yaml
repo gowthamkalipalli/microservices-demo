@@ -92,25 +92,6 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: GitOpsUpdateReleaseRepo
-                  name: Update Release Repo
-                  identifier: updateReleaseRepo
-                  timeout: 10m
-                  spec: {}
-              - step:
-                  type: MergePR
-                  name: Merge PR
-                  identifier: mergePR
-                  spec:
-                    deleteSourceBranch: true
-                  timeout: 10m
-              - step:
-                  type: GitOpsFetchLinkedApps
-                  name: Fetch Linked Apps
-                  identifier: fetchLinkedApps
-                  timeout: 10m
-                  spec: {}
-              - step:
                   type: K8sRollingDeploy
                   name: K8sRollingDeploy_1
                   identifier: K8sRollingDeploy_1
