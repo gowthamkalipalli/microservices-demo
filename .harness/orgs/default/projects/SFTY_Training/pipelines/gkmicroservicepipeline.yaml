@@ -129,6 +129,7 @@ pipeline:
                 - AllErrors
               action:
                 type: StageRollback
+        gitOpsEnabled: false
   variables:
     - name: SERVICE_NAME
       type: String
