@@ -1,0 +1,34 @@
+inputSet:
+  name: gk-artifact-inputset
+  identifier: gkartifactinputset
+  orgIdentifier: default
+  projectIdentifier: SFTY_Training
+  pipeline:
+    identifier: gkmicroservicepipeline
+    stages:
+      - stage:
+          identifier: CD
+          type: Deployment
+          spec:
+            service:
+              serviceInputs:
+                serviceDefinition:
+                  type: Kubernetes
+                  spec:
+                    artifacts:
+                      primary:
+                        primaryArtifactRef: microservicesCdArtifacts
+                        sources:
+                          - identifier: microservicesCdArtifacts
+                            type: GoogleArtifactRegistry
+                            spec:
+                              package: <+input>
+                              version: <+input>
+          variables:
+            - name: SERVICE_NAME
+              type: String
+              value: cartservice
+    variables:
+      - name: SERVICE_NAME
+        type: String
+        value: cartservice
