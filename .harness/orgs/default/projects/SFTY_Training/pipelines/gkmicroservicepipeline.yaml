@@ -78,9 +78,8 @@ pipeline:
         type: Deployment
         spec:
           deploymentType: Kubernetes
-          gitOpsEnabled: true
           service:
-            serviceRef: gkMicroservicesSvc
+            serviceRef: gksvcmicroservices
             serviceInputs:
               serviceDefinition:
                 type: Kubernetes
@@ -89,20 +88,29 @@ pipeline:
                     primary:
                       primaryArtifactRef: <+input>
                       sources: <+input>
+          environment:
+            environmentRef: gkmicroservicesenvnew
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: gkmicroservicesinfra
           execution:
             steps:
               - step:
+                  name: Rollout Deployment
+                  identifier: rolloutDeployment
                   type: K8sRollingDeploy
-                  name: K8sRollingDeploy_1
-                  identifier: K8sRollingDeploy_1
+                  timeout: 10m
                   spec:
                     skipDryRun: false
                     pruningEnabled: false
+            rollbackSteps:
+              - step:
+                  name: Rollback Rollout Deployment
+                  identifier: rollbackRolloutDeployment
+                  type: K8sRollingRollback
                   timeout: 10m
-            rollbackSteps: []
-          environment:
-            environmentRef: gkmicroservicesenvnew
-            deployToAll: true
+                  spec:
+                    pruningEnabled: false
         tags: {}
         failureStrategies:
           - onFailure:
@@ -110,7 +118,6 @@ pipeline:
                 - AllErrors
               action:
                 type: StageRollback
-        gitOpsEnabled: false
   variables:
     - name: SERVICE_NAME
       type: String
