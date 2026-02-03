@@ -46,14 +46,30 @@ pipeline:
                       cd src/${SERVICE_NAME}
 
                       if [ -f "go.mod" ]; then
-                        echo "Go service detected"
+                        echo "🟢 Go service detected"
                         go build -o app
+
                       elif [ -f "pom.xml" ]; then
-                        echo "Java service detected"
+                        echo "☕ Maven Java service detected"
                         mvn clean package -DskipTests
+
+                      elif [ -f "build.gradle" ] || [ -f "build.gradle.kts" ]; then
+                        echo "🚀 Gradle Java service detected"
+
+                        # make sure wrapper is executable
+                        chmod +x gradlew
+
+                        # build without tests for CI speed
+                        ./gradlew clean build -x test
+
                       elif [ -f "package.json" ]; then
-                        echo "Node service detected"
-                        npm install && npm run build
+                        echo "🟡 Node service detected"
+                        npm install
+                        npm run build
+
+                      else
+                        echo "❌ Unknown project type"
+                        exit 1
                       fi
                   timeout: 10m
               - step:
