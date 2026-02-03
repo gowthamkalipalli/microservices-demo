@@ -82,8 +82,7 @@ pipeline:
                     projectID: gowthamk
                     imageName: harness-repo/harness-repo/<+pipeline.variables.SERVICE_NAME>
                     tags:
-                      - latest
-                      - <+trigger.artifact.tag>
+                      - <+pipeline.variables.IMAGE_TAG>
                     dockerfile: src/<+pipeline.variables.SERVICE_NAME>/Dockerfile
                     context: src/<+pipeline.variables.SERVICE_NAME>
                   timeout: 10m
