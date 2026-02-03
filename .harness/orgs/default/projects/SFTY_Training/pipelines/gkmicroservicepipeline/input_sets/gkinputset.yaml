@@ -1,0 +1,24 @@
+inputSet:
+  name: gk-inputset
+  identifier: gkinputset
+  orgIdentifier: default
+  projectIdentifier: SFTY_Training
+  pipeline:
+    identifier: gkmicroservicepipeline
+    stages:
+      - stage:
+          identifier: CD
+          type: Deployment
+          spec:
+            service:
+              serviceInputs:
+                serviceDefinition:
+                  type: Kubernetes
+                  spec:
+                    artifacts:
+                      primary:
+                        primaryArtifactRef: GkArtifactDemooo
+    variables:
+      - name: SERVICE_NAME
+        type: String
+        value: adservice
