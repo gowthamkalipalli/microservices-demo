@@ -44,7 +44,7 @@ pipeline:
                     connectorRef: gkmicroservicesprojectdemo
                     host: asia-south1-docker.pkg.dev
                     projectID: gowthamk
-                    imageName: harness-repo/harness-repo/<+pipeline.variables.SERVICE_NAME>
+                    imageName: harness-repo/<+pipeline.variables.SERVICE_NAME>
                     tags:
                       - <+pipeline.variables.IMAGE_TAG>
                     dockerfile: src/<+pipeline.variables.SERVICE_NAME>/Dockerfile
