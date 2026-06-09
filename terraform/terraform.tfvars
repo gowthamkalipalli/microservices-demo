@@ -12,6 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-gcp_project_id = "project-189101b8-4110-4c2c-874"
+gcp_project_id = "gowthamk1"
 
 memorystore = false
