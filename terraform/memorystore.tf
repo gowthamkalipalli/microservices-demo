@@ -29,28 +29,3 @@ resource "google_redis_instance" "redis-cart" {
     module.enable_google_apis
   ]
 }
-
-# Edit contents of Memorystore kustomization.yaml file to target new Memorystore (redis) instance
-resource "null_resource" "kustomization-update" {
-  provisioner "local-exec" {
-    interpreter = ["PowerShell", "-Command"]
-
-    command = <<-EOT
-      $file = "../kustomize/components/memorystore/kustomization.yaml"
-      (Get-Content $file) `
-        -replace "REDIS_CONNECTION_STRING", "${google_redis_instance.redis-cart[0].host}:${google_redis_instance.redis-cart[0].port}" |
-        Set-Content $file
-    EOT
-  }
-
-  count = var.memorystore ? 1 : 0
-
-  depends_on = [
-    google_redis_instance.redis-cart
-  ]
-}
-
-  depends_on = [
-    resource.google_redis_instance.redis-cart
-  ]
-}
