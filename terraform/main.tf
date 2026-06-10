@@ -52,5 +52,5 @@ resource "google_container_cluster" "my_cluster" {
 
   depends_on = [
     module.enable_google_apis
-  
-
+  ]
+}
