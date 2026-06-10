@@ -45,55 +45,12 @@ resource "google_container_cluster" "my_cluster" {
   location = var.region
 
   enable_autopilot = true
+  deletion_protection = false
 
   ip_allocation_policy {
   }
 
   depends_on = [
     module.enable_google_apis
-  ]
-}
+  
 
-# Get GKE credentials using PowerShell
-resource "null_resource" "get_credentials" {
-  provisioner "local-exec" {
-    interpreter = ["PowerShell", "-Command"]
-
-    command = <<-EOT
-      gcloud container clusters get-credentials ${local.cluster_name} --region ${var.region} --project ${var.gcp_project_id}
-    EOT
-  }
-
-  depends_on = [
-    google_container_cluster.my_cluster
-  ]
-}
-
-# Apply Kubernetes manifests
-resource "null_resource" "apply_deployment" {
-  provisioner "local-exec" {
-    interpreter = ["PowerShell", "-Command"]
-
-    command = "kubectl apply -k ${var.filepath_manifest} -n ${var.namespace}"
-  }
-
-  depends_on = [
-    null_resource.get_credentials
-  ]
-}
-
-# Wait for resources to become ready
-resource "null_resource" "wait_conditions" {
-  provisioner "local-exec" {
-    interpreter = ["PowerShell", "-Command"]
-
-    command = <<-EOT
-      kubectl wait --for=condition=Available apiservice/v1beta1.metrics.k8s.io --timeout=180s
-      kubectl wait --for=condition=Ready pods --all -n ${var.namespace} --timeout=280s
-    EOT
-  }
-
-  depends_on = [
-    null_resource.apply_deployment
-  ]
-}
